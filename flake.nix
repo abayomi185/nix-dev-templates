@@ -1,8 +1,10 @@
 {
   description = "Templates for flake-driven environments";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
 
   outputs = {
     self,
@@ -44,11 +46,9 @@
               update
             ];
           };
-          templates = {
-            rust = {
-              path = ./rust;
-              description = "Rust development environment";
-            };
+          rust = {
+            path = ./rust;
+            description = "Rust development environment";
           };
         }
     );
