@@ -46,9 +46,11 @@
               update
             ];
           };
-          rust = {
-            path = ./rust;
-            description = "Rust development environment";
+          templates = {
+            rust = {
+              path = ./rust;
+              description = "Rust development environment";
+            };
           };
         }
     );
