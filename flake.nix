@@ -51,6 +51,10 @@
         path = ./expo;
         description = "Expo development environment";
       };
+      go = {
+        path = ./go;
+        description = "Go development environment";
+      };
       rust = {
         path = ./rust;
         description = "Rust development environment";
