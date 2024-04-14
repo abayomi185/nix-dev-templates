@@ -62,6 +62,7 @@
     };
 
     rust = ./rust/flake.nix;
+    go = ./rust/go.nix;
     expo = ./expo/flake.nix;
   };
 }
