@@ -60,9 +60,5 @@
         description = "Rust development environment";
       };
     };
-
-    rust = ./rust/flake.nix;
-    go = ./rust/go.nix;
-    expo = ./expo/flake.nix;
   };
 }
