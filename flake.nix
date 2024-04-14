@@ -3,55 +3,61 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
     self,
     nixpkgs,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        overlays = [
-          (
-            final: prev: let
-              exec = pkg: "${prev.${pkg}}/bin/${pkg}";
-            in {
-              format = prev.writeScriptBin "format" ''
-                ${exec "nixpkgs-fmt"} **/*.nix
-              '';
-              update = prev.writeScriptBin "update" ''
-                for dir in `ls -d */`; do # Iterate through all the templates
-                  (
-                    cd $dir
-                    ${exec "nix"} flake update # Update flake.lock
-                    ${exec "nix"} flake check  # Make sure things work after the update
-                  )
-                done
-              '';
-            }
-          )
+    ...
+  }: let
+    overlays = [
+      (final: prev: let
+        exec = pkg: "${prev.${pkg}}/bin/${pkg}";
+      in {
+        format = prev.writeScriptBin "format" ''
+          ${exec "nixpkgs-fmt"} **/*.nix
+        '';
+        update = prev.writeScriptBin "update" ''
+          for dir in `ls -d */`; do # Iterate through all the templates
+            (
+              cd $dir
+              ${exec "nix"} flake update # Update flake.lock
+              ${exec "nix"} flake check  # Make sure things work after the update
+            )
+          done
+        '';
+      })
+    ];
+    supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    forEachSupportedSystem = f:
+      nixpkgs.lib.genAttrs supportedSystems (system:
+        f {
+          pkgs = import nixpkgs {inherit overlays system;};
+        });
+  in {
+    # System-specific outputs
+    devShells = forEachSupportedSystem ({pkgs}: {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          format
+          update
         ];
-        pkgs =
-          import nixpkgs
-          {
-            inherit system overlays;
-          };
-      in
-        with pkgs; {
-          devShells.default = mkShell {
-            buildInputs = [
-              format
-              update
-            ];
-          };
-          templates = {
-            rust = {
-              path = ./rust;
-              description = "Rust development environment";
-            };
-          };
-        }
-    );
+      };
+    });
+
+    # Non-system-specific outputs
+    templates = {
+      expo = {
+        path = ./expo;
+        description = "Expo development environment";
+      };
+      rust = {
+        path = ./rust;
+        description = "Rust development environment";
+      };
+    };
+
+    rust = ./rust/flake.nix;
+    expo = ./expo/flake.nix;
+  };
 }
