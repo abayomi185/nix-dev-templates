@@ -46,7 +46,7 @@ Once your preferred template has been initialized, you can use the provided shel
 | [Expo]                  | [`expo`](./expo/)     |
 | [Go]                    | [`go`](./go/)         |
 | [Nix]                   | [`nix`](./nix/)       |
-| [Node.js][node]         | [`node`](./node/)     |
+| [node]                  | [`node`](./node/)     |
 | [Python]                | [`python`](./python/) |
 | [Rust]                  | [`rust`](./rust/)     |
 | [Zig]                   | [`zig`](./zig/)       |
