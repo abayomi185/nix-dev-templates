@@ -41,12 +41,13 @@ Once your preferred template has been initialized, you can use the provided shel
 
 ## Available templates
 
-| Language/framework/tool | Template              |
-| :---------------------- | :-------------------- |
-| [Expo]                  | [`expo`](./expo/)     |
-| [Go]                    | [`go`](./go/)         |
-| [Nix]                   | [`nix`](./nix/)       |
-| [node]                  | [`node`](./node/)     |
-| [Python]                | [`python`](./python/) |
-| [Rust]                  | [`rust`](./rust/)     |
-| [Zig]                   | [`zig`](./zig/)       |
+| Language/framework/tool | Template                      |
+| :---------------------- | :---------------------------- |
+| [Expo]                  | [`expo`](./expo/)             |
+| [Go]                    | [`go`](./go/)                 |
+| [Nix]                   | [`nix`](./nix/)               |
+| [node]                  | [`node`](./node/)             |
+| [Python]                | [`python`](./python/)         |
+| [Rust]                  | [`rust`](./rust/)             |
+| [Rust ESP32]            | [`rust_esp32`](./rust_esp32/) |
+| [Zig]                   | [`zig`](./zig/)               |
