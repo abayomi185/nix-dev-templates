@@ -14,7 +14,7 @@
     flake-utils.lib.eachDefaultSystem (system: let
       overlays = [
         (final: prev: {
-          nodejs = prev.nodejs_20;
+          nodejs = prev.nodejs_22;
           bun = prev.bun;
         })
       ];
@@ -23,10 +23,17 @@
         inherit system overlays;
       };
     in {
-      devShell =
+      devShells.default =
         pkgs.mkShell
         {
-          packages = with pkgs; [node2nix nodejs bun];
+          packages = with pkgs; [
+            node2nix
+            nodejs
+            bun
+            prettierd
+            yaml-language-server
+            nodePackages.typescript-language-server
+          ];
         };
     });
 }
