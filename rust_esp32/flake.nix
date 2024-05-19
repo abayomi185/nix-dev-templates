@@ -1,66 +1,57 @@
 {
-  description = "ESP32 Rust development environment with FHS";
+  description = "ESP32 Rust development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs = {
       nixpkgs.follows = "nixpkgs";
-      flake-utils.follows = "flake-utils";
     };
   };
 
   outputs = {
+    self,
     nixpkgs,
-    flake-utils,
     rust-overlay,
-    ...
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        overlays = [
-          (import rust-overlay)
+  }: let
+    overlays = [
+      (import rust-overlay)
+    ];
+    supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    forEachSupportedSystem = f:
+      nixpkgs.lib.genAttrs supportedSystems (system:
+        f {
+          pkgs = import nixpkgs {inherit overlays system;};
+        });
+  in {
+    devShells = forEachSupportedSystem ({pkgs}: {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          rustup
+          vscode-extensions.vadimcn.vscode-lldb
+          espup
+          ldproxy
+          cargo-espflash
         ];
-        pkgs = import nixpkgs {
-          inherit system overlays;
-        };
-        rustFhsEnv = pkgs.buildFHSUserEnv {
-          name = "rust-fhs-env";
-          targetPkgs = pkgs:
-            with pkgs; [
-              rustup
-              vscode-extensions.vadimcn.vscode-lldb
-              espup
-              ldproxy
-              cargo-espflash
-            ];
-          multiPkgs = pkgs:
-            with pkgs; [
-              # Additional packages if necessary
-            ];
-          runScript = "zsh";
-          profile = ''
-            echo "Setting up ESP environment"
-            # See .envrc for more details on the use of this environment variable
-            export INSIDE_RUST_FHS_ENV=1
 
-            # Set up debugger path
-            export CODE_LLDB_PATH="${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
-            export LIB_LLDB_PATH="${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
+        # for debugging with lsp in neovim
+        CODE_LLDB_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
+        LIB_LLDB_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
 
-            # Exit immediately if a command exits with a non-zero status.
-            set -e
+        shellHook = ''
+          echo "Setting up ESP environment"
+          # to prevent infinite recursion of activating rust environment
+          # see .envrc for activation condition
+          export INSIDE_RUST_ENV=1
 
-            # Source the ESP environment variables
-            . /home/yomi/export-esp.sh
+          set -e # stops this on error of any command below
 
-            # Set rust-analyzer to nightly x86_64-unknown-linux-gnu
-            ln -sf ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer ~/.rustup/toolchains/esp/bin/rust-analyzer
-          '';
-        };
-      in {
-        devShells.default = rustFhsEnv.env;
-      }
-    );
+          # run espup to install the esp toolchain for this command to work
+          . ~/export-esp.sh
+
+          ln -sf ~/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/rust-analyzer ~/.rustup/toolchains/esp/bin/rust-analyzer
+        '';
+      };
+    });
+  };
 }

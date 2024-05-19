@@ -1,30 +1,28 @@
 {
   description = "Expo dev environment";
 
-  inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-  };
+  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
 
   outputs = {
     self,
     nixpkgs,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      overlays = [
-        (final: prev: rec {
-          nodejs = prev.nodejs_18;
-          yarn = prev.yarn.override {inherit nodejs;};
-        })
-      ];
-      pkgs = import nixpkgs {
-        inherit overlays system;
-      };
-      buildDeps = with pkgs; [git];
-      devDeps = with pkgs;
-        buildDeps
-        ++ [
+  }: let
+    overlays = [
+      (final: prev: rec {
+        nodejs = prev.nodejs_18;
+        yarn = prev.yarn.override {inherit nodejs;};
+      })
+    ];
+    supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    forEachSupportedSystem = f:
+      nixpkgs.lib.genAttrs supportedSystems (system:
+        f {
+          pkgs = import nixpkgs {inherit overlays system;};
+        });
+  in {
+    devShells = forEachSupportedSystem ({pkgs}: {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
           node2nix
           nodejs
           yarn
@@ -34,7 +32,7 @@
           nodePackages.expo-cli
           nodePackages.eas-cli
         ];
-    in {
-      devShell = pkgs.mkShell {buildInputs = devDeps;};
+      };
     });
+  };
 }
