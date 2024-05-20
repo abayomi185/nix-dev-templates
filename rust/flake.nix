@@ -28,7 +28,12 @@
         in
           if toolchainFile != null
           then rust.fromRustupToolchainFile toolchainFile
-          else rust.stable.latest.default;
+          else
+            (rust.stable.latest.default.override {
+              extensions = [
+                "rust-analyzer"
+              ];
+            });
       })
     ];
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
@@ -42,7 +47,6 @@
       default = pkgs.mkShell {
         packages = with pkgs; [
           rustToolchain
-          rust-analyzer
           vscode-extensions.vadimcn.vscode-lldb
         ];
 
