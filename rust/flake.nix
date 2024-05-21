@@ -48,6 +48,7 @@
         packages = with pkgs; [
           rustToolchain
           vscode-extensions.vadimcn.vscode-lldb
+          taplo
         ];
 
         # for debugging with lsp in neovim

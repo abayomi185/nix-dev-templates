@@ -32,6 +32,7 @@
           espup
           ldproxy
           cargo-espflash
+          taplo
         ];
 
         # for debugging with lsp in neovim
