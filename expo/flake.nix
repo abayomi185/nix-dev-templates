@@ -9,7 +9,7 @@
   }: let
     overlays = [
       (final: prev: rec {
-        nodejs = prev.nodejs_18;
+        nodejs = prev.nodejs_22;
         yarn = prev.yarn.override {inherit nodejs;};
       })
     ];
