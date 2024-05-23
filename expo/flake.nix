@@ -28,9 +28,7 @@
           yarn
           prettierd
           yaml-language-server
-          nodePackages.typescript-language-server
-          nodePackages.expo-cli
-          nodePackages.eas-cli
+          typescript
         ];
       };
     });
