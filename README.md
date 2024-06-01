@@ -50,4 +50,5 @@ Once your preferred template has been initialized, you can use the provided shel
 | [Python]                | [`python`](./python/)         |
 | [Rust]                  | [`rust`](./rust/)             |
 | [Rust ESP32]            | [`rust_esp32`](./rust_esp32/) |
+| [AWS-SAM]               | [`aws-sam`](./aws-sam/)       |
 | [Zig]                   | [`zig`](./zig/)               |
