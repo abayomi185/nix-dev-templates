@@ -20,6 +20,7 @@
       default = pkgs.mkShell {
         packages = with pkgs; [
           go # specified by overlay
+          gopls # Go Language Server
           gotools # goimports, godoc, etc.
           golangci-lint # https://github.com/golangci/golangci-lint
           gotestsum
