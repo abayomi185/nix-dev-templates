@@ -45,6 +45,9 @@
           # see .envrc for activation condition
           export INSIDE_RUST_ENV=1
 
+          # To fix the issue with libiconv not found
+          export LIBRARY_PATH=$LIBRARY_PATH:$(brew --prefix)/opt/libiconv/lib
+
           set -e # stops this on error of any command below
 
           # run espup to install the esp toolchain for this command to work
