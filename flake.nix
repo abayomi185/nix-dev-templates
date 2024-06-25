@@ -13,19 +13,33 @@
     overlays = [
       (final: prev: let
         exec = pkg: "${prev.${pkg}}/bin/${pkg}";
-      in {
-        format = prev.writeScriptBin "format" ''
-          ${exec "nixpkgs-fmt"} **/*.nix
-        '';
-        update = prev.writeScriptBin "update" ''
-          for dir in `ls -d */`; do # Iterate through all the templates
+        forEachDir = exec: ''
+          for dir in */; do
             (
-              cd $dir
-              ${exec "nix"} flake update # Update flake.lock
-              ${exec "nix"} flake check  # Make sure things work after the update
+              cd "''${dir}"
+
+              ${exec}
             )
           done
         '';
+      in {
+        format = prev.writeScriptBin "format" ''
+          ${exec "alejandra"} **/*.nix
+        '';
+        check = final.writeShellApplication {
+          name = "check";
+          text = forEachDir ''
+            echo "checking ''${dir}"
+            nix flake check --all-systems --no-build
+          '';
+        };
+        update = final.writeShellApplication {
+          name = "update";
+          text = forEachDir ''
+            echo "updating ''${dir}"
+            nix flake update
+          '';
+        };
       })
     ];
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
