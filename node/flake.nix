@@ -25,7 +25,7 @@
           bun
           prettierd
           yaml-language-server
-          nodePackages.typescript-language-server
+          typescript
         ];
       };
     });
