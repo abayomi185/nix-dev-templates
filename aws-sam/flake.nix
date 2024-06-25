@@ -18,6 +18,7 @@
       default = pkgs.mkShell {
         packages = with pkgs; [
           aws-sam-cli
+          # More tools
           yaml-language-server
           python312Packages.cfn-lint
         ];
