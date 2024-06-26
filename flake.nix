@@ -70,6 +70,10 @@
         path = ./go;
         description = "Go development environment";
       };
+      openscad = {
+        path = ./openscad;
+        description = "OpenSCAD development environment";
+      };
       rust = {
         path = ./rust;
         description = "Rust development environment";
