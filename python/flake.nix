@@ -18,7 +18,12 @@
       default = pkgs.mkShell {
         venvDir = ".venv";
         packages = with pkgs;
-          [python312]
+          [
+            python312
+            pyright
+            black
+            isort
+          ]
           ++ (with pkgs.python312Packages; [
             pip
             venvShellHook
