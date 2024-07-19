@@ -8,7 +8,10 @@
     nixpkgs,
   }: let
     overlays = [
-      (final: prev: {nodejs = prev.nodejs_22;})
+      (final: prev: rec {
+        nodejs = prev.nodejs_22;
+        yarn = prev.yarn.override {inherit nodejs;};
+      })
     ];
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
     forEachSupportedSystem = f:
@@ -20,12 +23,13 @@
     devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
         packages = with pkgs; [
+          bun
           node2nix
           nodejs
-          bun
           prettierd
-          yaml-language-server
           typescript
+          yaml-language-server
+          yarn
         ];
       };
     });
