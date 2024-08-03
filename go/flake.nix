@@ -24,6 +24,11 @@
           gotools # goimports, godoc, etc.
           golangci-lint # https://github.com/golangci/golangci-lint
           gotestsum
+          delve # Go debugger
+          gotests # Generate tests from your source code
+          impl # Generate method stubs for implementing an interface
+          gomodifytags # Tool to modify struct field tags
+          iferr # Generate "if err != nil block
         ];
       };
     });
