@@ -19,21 +19,16 @@
       (final: prev: {
         rustToolchain = let
           rust = prev.rust-bin;
-          toolchainFile =
-            if builtins.pathExists ./rust-toolchain.toml
-            then ./rust-toolchain.toml
-            else if builtins.pathExists ./rust-toolchain
-            then ./rust-toolchain
-            else null;
         in
-          if toolchainFile != null
-          then rust.fromRustupToolchainFile toolchainFile
+          if builtins.pathExists ./rust-toolchain.toml
+          then rust.fromRustupToolchainFile ./rust-toolchain.toml
           else
-            (rust.stable.latest.default.override {
+            rust.stable.latest.default.override {
               extensions = [
-                "rust-analyzer"
+                "rust-src"
+                "rustfmt"
               ];
-            });
+            };
       })
     ];
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
@@ -49,6 +44,7 @@
           rustToolchain
           vscode-extensions.vadimcn.vscode-lldb
           taplo
+          rust-analyzer
         ];
 
         # for debugging with lsp in neovim
