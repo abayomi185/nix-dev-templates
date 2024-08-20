@@ -21,14 +21,22 @@
           rust = prev.rust-bin;
         in
           if builtins.pathExists ./rust-toolchain.toml
-          then rust.fromRustupToolchainFile ./rust-toolchain.toml
+          then
+            (
+              builtins.trace "rust-toolchain.toml found"
+              rust.fromRustupToolchainFile
+              ./rust-toolchain.toml
+            )
           else
-            rust.stable.latest.default.override {
-              extensions = [
-                "rust-src"
-                "rustfmt"
-              ];
-            };
+            (
+              builtins.trace "rust-toolchain.toml not found"
+              rust.stable.latest.default.override {
+                extensions = [
+                  "rust-src"
+                  "rustfmt"
+                ];
+              }
+            );
       })
     ];
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
