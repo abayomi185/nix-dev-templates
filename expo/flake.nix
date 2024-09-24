@@ -29,7 +29,7 @@
           prettierd
           yaml-language-server
           typescript
-          nodePackages.vscode-json-languageserver-bin
+          vscode-langservers-extracted
         ];
       };
     });
