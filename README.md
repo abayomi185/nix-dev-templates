@@ -45,6 +45,7 @@ Once your preferred template has been initialized, you can use the provided shel
 | :---------------------- | :---------------------------- |
 | [AWS-SAM]               | [`aws-sam`](./aws-sam/)       |
 | [Expo]                  | [`expo`](./expo/)             |
+| [Deno]                  | [`deno`](./deno/)             |
 | [Go]                    | [`go`](./go/)                 |
 | [Nix]                   | [`nix`](./nix/)               |
 | [node]                  | [`node`](./node/)             |
