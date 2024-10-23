@@ -51,5 +51,6 @@ Once your preferred template has been initialized, you can use the provided shel
 | [node]                  | [`node`](./node/)             |
 | [Python]                | [`python`](./python/)         |
 | [Rust]                  | [`rust`](./rust/)             |
+| [Rustup]                | [`rustup`](./rustup/)         |
 | [Rust ESP32]            | [`rust_esp32`](./rust_esp32/) |
 | [Zig]                   | [`zig`](./zig/)               |
