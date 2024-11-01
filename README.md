@@ -47,6 +47,7 @@ Once your preferred template has been initialized, you can use the provided shel
 | [Expo]                  | [`expo`](./expo/)             |
 | [Deno]                  | [`deno`](./deno/)             |
 | [Go]                    | [`go`](./go/)                 |
+| [Kubernetes]            | [`yaml`](./kubernetes/)       |
 | [Nix]                   | [`nix`](./nix/)               |
 | [node]                  | [`node`](./node/)             |
 | [Python]                | [`python`](./python/)         |
