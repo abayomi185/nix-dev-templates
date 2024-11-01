@@ -1,7 +1,7 @@
 {
   description = "Kubernetes development environment";
 
-  inputs.nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = {
     self,
@@ -19,6 +19,7 @@
       default = pkgs.mkShell {
         packages = with pkgs; [
           fluxcd
+          renovate
           yaml-language-server
         ];
       };
