@@ -19,6 +19,7 @@
       default = pkgs.mkShell {
         packages = with pkgs; [
           fluxcd
+          kubernetes-helm
           renovate
           yaml-language-server
         ];
