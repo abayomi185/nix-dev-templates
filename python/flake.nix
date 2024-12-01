@@ -23,6 +23,7 @@
             pyright
             black
             isort
+            vscode-extensions.ms-python.debugpy
           ]
           ++ (with pkgs.python312Packages; [
             pip
