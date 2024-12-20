@@ -29,6 +29,9 @@
             pip
             venvShellHook
           ]);
+        shellHook = ''
+          export PATH=$venvDir/bin:$PATH
+        '';
       };
     });
   };
