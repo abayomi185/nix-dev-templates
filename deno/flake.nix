@@ -1,11 +1,7 @@
 {
   description = "Deno development environment";
 
-  # inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  inputs.nixpkgs = {
-    url = "github:nixos/nixpkgs/nixos-unstable";
-    flake = false;
-  };
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
   outputs = {
     self,

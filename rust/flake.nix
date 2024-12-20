@@ -2,7 +2,7 @@
   description = "Rust development environment";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs = {
       nixpkgs.follows = "nixpkgs";
