@@ -32,9 +32,6 @@
             pip
             venvShellHook
           ]);
-        postShellHook = ''
-          export PATH=$venvDir/bin:$PATH
-        '';
       };
     });
   };
