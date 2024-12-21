@@ -14,22 +14,25 @@
           pkgs = import nixpkgs {inherit system;};
         });
   in {
-    devShells = forEachSupportedSystem ({pkgs}: {
+    devShells = forEachSupportedSystem ({pkgs}: let
+      python = pkgs.python312;
+      pythonPackages = pkgs.python312Packages;
+    in {
       default = pkgs.mkShell {
         venvDir = ".venv";
         packages = with pkgs;
           [
-            python312
+            python
             pyright
             black
             isort
             vscode-extensions.ms-python.debugpy
           ]
-          ++ (with pkgs.python312Packages; [
+          ++ (with pythonPackages; [
             pip
             venvShellHook
           ]);
-        shellHook = ''
+        postShellHook = ''
           export PATH=$venvDir/bin:$PATH
         '';
       };
