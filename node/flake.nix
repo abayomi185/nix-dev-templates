@@ -11,6 +11,7 @@
       (final: prev: rec {
         nodejs = prev.nodejs_22;
         yarn = prev.yarn.override {inherit nodejs;};
+        pnpm = prev.pnpm.override {inherit nodejs;};
       })
     ];
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
@@ -26,6 +27,7 @@
           bun
           node2nix
           nodejs
+          pnpm
           prettierd
           typescript
           yaml-language-server
