@@ -49,7 +49,6 @@
     devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
         packages = with pkgs; [
-          rust-analyzer
           rustToolchain
           taplo
           vscode-extensions.vadimcn.vscode-lldb
