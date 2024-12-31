@@ -49,10 +49,11 @@
     devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
         packages = with pkgs; [
-          rustToolchain
-          vscode-extensions.vadimcn.vscode-lldb
-          taplo
           rust-analyzer
+          rustToolchain
+          taplo
+          vscode-extensions.vadimcn.vscode-lldb
+          vscode-langservers-extracted
         ];
 
         # for debugging with lsp in neovim
