@@ -30,6 +30,7 @@
           pnpm
           prettierd
           typescript
+          typescript-language-server
           vscode-langservers-extracted
           yaml-language-server
           yarn
