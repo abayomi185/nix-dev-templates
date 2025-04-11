@@ -33,6 +33,7 @@
           typescript-language-server
           typescript
           vscode-langservers-extracted
+          vtsls
         ];
       };
     });
