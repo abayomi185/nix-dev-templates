@@ -30,6 +30,8 @@ Or perpetually by putting into your `.envrc`, the following (see: [Determinate s
 
 ```shell
 use flake "github:abayomi185/nix-dev-templates?dir=rust"
+# or
+use flake "github:abayomi185/nix-dev-templates?dir=python&rev=f888276eeece760339aad5f9009a8e4d3a89b264"
 ```
 
 ## How to use the templates
