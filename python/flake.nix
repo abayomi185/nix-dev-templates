@@ -15,8 +15,8 @@
         });
   in {
     devShells = forEachSupportedSystem ({pkgs}: let
-      python = pkgs.python312;
-      pythonPackages = pkgs.python312Packages;
+      python = pkgs.python313;
+      pythonPackages = pkgs.python313Packages;
     in {
       default = pkgs.mkShell {
         venvDir = ".venv";
