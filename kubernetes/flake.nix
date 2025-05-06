@@ -20,6 +20,7 @@
         packages = with pkgs; [
           fluxcd
           kubernetes-helm
+          kustomize
           renovate
           yaml-language-server
         ];
