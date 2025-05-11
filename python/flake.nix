@@ -22,6 +22,7 @@
         venvDir = ".venv";
         packages = with pkgs;
           [
+            basedpyright
             python
             pyright
             black
