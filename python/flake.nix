@@ -14,25 +14,16 @@
           pkgs = import nixpkgs {inherit system;};
         });
   in {
-    devShells = forEachSupportedSystem ({pkgs}: let
-      python = pkgs.python313;
-      pythonPackages = pkgs.python313Packages;
-    in {
+    devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
-        venvDir = ".venv";
-        packages = with pkgs;
-          [
-            basedpyright
-            python
-            pyright
-            black
-            isort
-            uv
-          ]
-          ++ (with pythonPackages; [
-            pip
-            venvShellHook
-          ]);
+        packages = with pkgs; [
+          basedpyright
+          black
+          isort
+          pyright
+          ruff
+          uv
+        ];
       };
     });
   };
