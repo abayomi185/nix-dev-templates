@@ -27,9 +27,9 @@
             pyright
             black
             isort
+            uv
           ]
           ++ (with pythonPackages; [
-            debugpy
             pip
             venvShellHook
           ]);
