@@ -27,9 +27,9 @@
             pyright
             black
             isort
-            vscode-extensions.ms-python.debugpy
           ]
           ++ (with pythonPackages; [
+            debugpy
             pip
             venvShellHook
           ]);
