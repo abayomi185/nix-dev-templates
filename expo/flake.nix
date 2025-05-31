@@ -30,6 +30,7 @@
           yarn
           prettierd
           yaml-language-server
+          tailwindcss-language-server
           typescript-language-server
           typescript
           vscode-langservers-extracted
