@@ -19,17 +19,19 @@
       (final: prev: {
         rustToolchain = let
           rust = prev.rust-bin;
+          projectDir = builtins.getEnv "PWD";
+          projectRustToolchain = projectDir + "/rust-toolchain.toml";
         in
-          if builtins.pathExists ./rust-toolchain.toml
+          if builtins.pathExists projectRustToolchain
           then
             (
-              builtins.trace "rust-toolchain.toml found"
+              builtins.trace "rust-toolchain.toml found in project directory ${projectDir}"
               rust.fromRustupToolchainFile
-              ./rust-toolchain.toml
+              projectRustToolchain
             )
           else
             (
-              builtins.trace "rust-toolchain.toml not found"
+              builtins.trace "rust-toolchain.toml not found in ${projectDir}, using default (stable)"
               rust.stable.latest.default.override {
                 extensions = [
                   "rust-src"
