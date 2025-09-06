@@ -1,5 +1,5 @@
 {
-  description = "ESP32 Rust development environment";
+  description = "ESP32 (RISC-V) Rust development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
