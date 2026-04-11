@@ -25,7 +25,6 @@
       default = pkgs.mkShell {
         packages = with pkgs; [
           bun
-          node2nix
           nodejs
           pnpm
           prettierd
