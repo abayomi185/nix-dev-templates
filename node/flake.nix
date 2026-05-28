@@ -8,6 +8,27 @@
     nixpkgs,
   }: let
     overlays = [
+      (final: prev: let
+        bunVersion = "1.3.14";
+        bunSources = {
+          aarch64-darwin = prev.fetchurl {
+            url = "https://github.com/oven-sh/bun/releases/download/bun-v${bunVersion}/bun-darwin-aarch64.zip";
+            hash = "sha256-2LliIYKK1vl6x6wKt+lYcjQa92MAHogD6CZ2UsJlJiA=";
+          };
+          x86_64-linux = prev.fetchurl {
+            url = "https://github.com/oven-sh/bun/releases/download/bun-v${bunVersion}/bun-linux-x64.zip";
+            hash = "sha256-lR7iruhV8IWVruxiJSJqKY0/6oOj3NZGXAnLzN9+hI8=";
+          };
+        };
+      in {
+        bun = prev.bun.overrideAttrs (oldAttrs: {
+          version = bunVersion;
+          src =
+            bunSources.${final.stdenv.hostPlatform.system}
+            or (throw "Unsupported system: ${final.stdenv.hostPlatform.system}");
+          passthru = oldAttrs.passthru // {sources = bunSources;};
+        });
+      })
       (final: prev: rec {
         nodejs = prev.nodejs_22;
         yarn = prev.yarn.override {inherit nodejs;};
