@@ -30,7 +30,7 @@
         });
       })
       (final: prev: rec {
-        nodejs = prev.nodejs_22;
+        nodejs = prev.nodejs_24;
         yarn = prev.yarn.override {inherit nodejs;};
         pnpm = prev.pnpm.override {inherit nodejs;};
       })
