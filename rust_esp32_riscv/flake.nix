@@ -53,6 +53,7 @@
         packages = with pkgs; [
           cargo-espflash
           esp-generate
+          esptool
           ldproxy
           probe-rs-tools
           rustToolchain

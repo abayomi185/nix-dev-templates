@@ -45,6 +45,7 @@
     devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
         packages = with pkgs; [
+          astro-language-server
           bun
           nodejs
           pnpm
